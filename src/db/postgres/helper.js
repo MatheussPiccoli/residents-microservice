@@ -7,7 +7,7 @@ export const pool = new Pool({
   password: process.env.POSTGRES_PASSWORD,
   port: process.env.POSTGRES_PORT,
   database: process.env.POSTGRES_DB,
-  host: process.env.POSTGRES_HOST,
+  host: process.env.HOST,
 });
 
 export const PostgresHelper = {
