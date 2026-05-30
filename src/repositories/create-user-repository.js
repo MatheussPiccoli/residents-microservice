@@ -1,1 +1,17 @@
-export class PostgresCreateUserRepository {}
+import { PostgresHelper } from "./../db/postgres/helper.js";
+
+export class PostgresCreateResidentRepository {
+  async execute(createResidentParams) {
+    const createdResident = await PostgresHelper.query(
+      "INSERT INTO residents (id, name, email, locker_id) VALUES ($1, $2, $3, $4) RETURNING *",
+      [
+        createResidentParams.id,
+        createResidentParams.name,
+        createResidentParams.email,
+        createResidentParams.locker_id,
+      ],
+    );
+
+    return createdResident[0];
+  }
+}
