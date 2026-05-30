@@ -1,6 +1,7 @@
 CREATE TABLE residents (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    locker_id TEXT NOT NULL
+    id UUID PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    locker_id UUID NOT NULL,
+    password VARCHAR(100) NOT NULL
 );
