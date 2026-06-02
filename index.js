@@ -1,27 +1,13 @@
 import "dotenv/config.js";
-import { PostgresCreateResidentRepository } from "./src/repositories/create-resident.js";
-import { CreateResidentUseCase } from "./src/use-cases/create-resident.js";
-import { PostGresGetUserByEmailRepository } from "./src/repositories/get-resident-by-email.js";
 import express, { response } from "express";
-import { CreateResidentController } from "./src/controllers/create-resident.js";
+import { makeCreateResidentController } from "./src/controllers/factories/index.js";
 
 const app = express();
 
 app.use(express.json());
 
 app.post("/api/residents", async (request, response) => {
-  const createResidentRepository = new PostgresCreateResidentRepository();
-
-  const getResidentByEmailRepository = new PostGresGetUserByEmailRepository();
-
-  const createResidentUseCase = new CreateResidentUseCase(
-    createResidentRepository,
-    getResidentByEmailRepository,
-  );
-
-  const createResidentController = new CreateResidentController(
-    createResidentUseCase,
-  );
+  const createResidentController = makeCreateResidentController();
 
   const { statusCode, body } = await createResidentController.execute(request);
 
