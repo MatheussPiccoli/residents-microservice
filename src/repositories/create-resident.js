@@ -9,6 +9,7 @@ export class PostgresCreateResidentRepository {
         createResidentParams.name,
         createResidentParams.email,
         createResidentParams.locker_id,
+        createResidentParams.password,
       ],
     );
 

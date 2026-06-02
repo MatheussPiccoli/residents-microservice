@@ -13,7 +13,7 @@ export class CreateResidentUseCase {
     );
 
     if (userWithProvidedEmail) {
-      throw new Error("Email Already in use");
+      throw new Error({ message: "Email Already in use" });
     }
 
     const residentId = randomUUID();
