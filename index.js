@@ -27,7 +27,7 @@ app.get("/api/residents/:id", async (request, response) => {
   response.status(statusCode).send(body);
 });
 
-app.get("api/residents/locker/:lockerId", async (request, response) => {
+app.get("/api/residents/locker/:lockerId", async (request, response) => {
   const controller = makeGetResidentsByLockerIdController();
 
   const { statusCode, body } = await controller.execute(request);
