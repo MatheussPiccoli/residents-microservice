@@ -2,6 +2,7 @@ import "dotenv/config.js";
 import express, { response } from "express";
 import {
   makeCreateResidentController,
+  makeDeleteResidentController,
   makeGetResidentByIdController,
 } from "./src/controllers/factories/index.js";
 
@@ -18,9 +19,18 @@ app.post("/api/residents", async (request, response) => {
 });
 
 app.get("/api/residents/:id", async (request, response) => {
-  const controller = makeGetResidentByIdController();
+  const getResidentByIdcontroller = makeGetResidentByIdController();
 
-  const { statusCode, body } = await controller.execute(request);
+  const { statusCode, body } = await getResidentByIdcontroller.execute(request);
+
+  response.status(statusCode).send(body);
+});
+
+app.delete("/api/residents/:id", async (request, response) => {
+  const deleteResidentController = makeDeleteResidentController();
+
+  const { statusCode, body } =
+    await makeDeleteResidentController.execute(request);
 
   response.status(statusCode).send(body);
 });
