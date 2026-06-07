@@ -1,48 +1,59 @@
-import {
-  EmailAlreadyInUseError,
-  UserNotFoundError,
-} from "../../errors/users.js";
 import bcrypt from "bcrypt";
+import {
+  ResidentNotFoundError,
+  EmailAlreadyInUseError,
+} from "../errors/index.js";
 
-export class UpdateUserUseCase {
+export class UpdateResidentUseCase {
   constructor(
-    updateUserRepository,
-    getUserByIdRepository,
-    getUserByEmailRepository,
+    updateUseRrepository,
+    getResidentByIdRepository,
+    getResidentByEmailRepository,
   ) {
-    this.updateUserRepository = updateUserRepository;
-    this.getUserByIdRepository = getUserByIdRepository;
-    this.getUserByEmailRepository = getUserByEmailRepository;
+    this.updateResidentRepository = updateResidentRepository;
+    this.getResidentByIdRepository = getResidentByIdRepository;
+    this.getResidentByEmailRepository = getResidentByEmailRepository;
   }
 
-  async execute(userId, updateUserParams) {
-    const userWithProvidedId = await this.getUserByIdRepository.execute(userId);
-    if (!userWithProvidedId) {
-      throw new UserNotFoundError();
+  async execute(residentId, updateResidentParams) {
+    const residentWithProvidedId =
+      await this.getResidentByIdRepository.execute(residentId);
+    if (!residentWithProvidedId) {
+      throw new ResidentNotFoundError();
     }
 
-    if (updateUserParams.email) {
-      const userWithProvidedEmail = await this.getUserByEmailRepository.execute(
-        updateUserParams.email,
-      );
+    if (updateResidentParams.email) {
+      const residentWithProvidedEmail =
+        await this.getResidentByEmailRepository.execute(
+          updateResidentParams.email,
+        );
 
-      if (userWithProvidedEmail && userWithProvidedEmail.id !== userId) {
-        throw new EmailAlreadyInUseError(updateUserParams.email);
+      if (
+        residentWithProvidedEmail &&
+        residentWithProvidedEmail.id !== residentId
+      ) {
+        throw new EmailAlreadyInUseError(updateResidentParams.email);
       }
     }
 
-    const user = {
-      ...updateUserParams,
+    const resident = {
+      ...updateResidentParams,
     };
 
-    if (updateUserParams.password) {
-      const hashedPassword = await bcrypt.hash(updateUserParams.password, 10);
+    if (updateResidentParams.password) {
+      const hashedPassword = await bcrypt.hash(
+        updateResidentParams.password,
+        10,
+      );
 
-      user.password = hashedPassword;
+      resident.password = hashedPassword;
     }
 
-    const updatedUser = await this.updateUserRepository.execute(userId, user);
+    const updatedResident = await this.updateResidentRepository.execute(
+      residentId,
+      resident,
+    );
 
-    return updatedUser;
+    return updatedResident;
   }
 }
