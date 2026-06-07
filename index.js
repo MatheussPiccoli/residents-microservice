@@ -14,6 +14,14 @@ app.post("/api/residents", async (request, response) => {
   response.status(statusCode).send(body);
 });
 
+app.get("/residents/:id", async (request, response) => {
+  const controller = makeGetResidentByIdController();
+
+  const { statusCode, body } = await controller.execute(request);
+
+  response.status(statusCode).send(body);
+});
+
 app.listen(process.env.PORT, () =>
   console.log(`listening on port ${process.env.PORT}`),
 );
