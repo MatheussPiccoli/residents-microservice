@@ -15,5 +15,5 @@ export const checkIfPasswordIsValid = (password) => password.length >= 6;
 
 export const checkIfEmailIsValid = (email) => validator.isEmail(email);
 
-export const userNotFoundResponse = () =>
+export const residentNotFoundResponse = () =>
   NotFound({ message: "User not found" });
