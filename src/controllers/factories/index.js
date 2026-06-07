@@ -30,10 +30,6 @@ export const makeCreateResidentController = () => {
   return createResidentController;
 };
 
-import { GetResidentByIdController } from "../controllers/get-resident-by-id.js";
-import { GetResidentByIdUseCase } from "../use-cases/get-resident-by-id.js";
-import { PostgresGetResidentByIdRepository } from "../repositories/postgres-get-resident-by-id.js";
-
 export const makeGetResidentByIdController = () => {
   const repository = new PostgresGetResidentByIdRepository();
 
