@@ -3,18 +3,21 @@ import {
   PostGresGetUserByEmailRepository,
   PostgresGetResidentByIdRepository,
   PostgresDeleteResidentRepository,
+  PostgresUpdateResidentRepository,
 } from "../../repositories/index.js";
 
 import {
   CreateResidentUseCase,
   GetResidentByIdUseCase,
   DeleteResidentUseCase,
+  UpdateResidentUseCase,
 } from "../../use-cases/index.js";
 import {
   CreateResidentController,
   GetResidentByIdController,
   DeleteResidentController,
 } from "../residents/index.js";
+import { UpdateResidentController } from "../residents/update-resident.js";
 
 export const makeCreateResidentController = () => {
   const createResidentRepository = new PostgresCreateResidentRepository();

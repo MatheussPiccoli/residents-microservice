@@ -12,7 +12,7 @@ import {
   checkIfEmailIsValid,
   checkIfIdIsValid,
   badRequest,
-  NotFound,
+  notFound,
 } from "../helpers/index.js";
 
 export class UpdateResidentController {
@@ -23,7 +23,7 @@ export class UpdateResidentController {
     try {
       const residentId = httpRequest.params.id;
 
-      const isIdValid = checkIfIdIsValid(id);
+      const isIdValid = checkIfIdIsValid(residentId);
 
       if (!isIdValid) {
         return invalidIdResponse();
@@ -31,7 +31,13 @@ export class UpdateResidentController {
 
       const params = httpRequest.body;
 
-      const allowedFields = ["first_name", "last_name", "email", "password"];
+      const lockerIdIsValid = checkIfIdIsValid(params.locker_id);
+
+      if (!lockerIdIsValid) {
+        return invalidIdResponse();
+      }
+
+      const allowedFields = ["name", "email", "locker_id", "password"];
 
       const someFieldIsNotAllowed = Object.keys(params).some(
         (field) => !allowedFields.includes(field),
@@ -70,7 +76,7 @@ export class UpdateResidentController {
         return badRequest({ message: error.message });
       }
       if (error instanceof ResidentNotFoundError) {
-        return NotFound({ message: error.message });
+        return notFound({ message: error.message });
       }
       console.log(error);
       return serverError();

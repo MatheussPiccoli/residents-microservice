@@ -2,11 +2,11 @@ import bcrypt from "bcrypt";
 import {
   ResidentNotFoundError,
   EmailAlreadyInUseError,
-} from "../errors/index.js";
+} from "../errors/residents.js";
 
 export class UpdateResidentUseCase {
   constructor(
-    updateUseRrepository,
+    updateResidentRepository,
     getResidentByIdRepository,
     getResidentByEmailRepository,
   ) {

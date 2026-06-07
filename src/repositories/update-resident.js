@@ -23,7 +23,6 @@ export class PostgresUpdateResidentRepository {
       updateQuery,
       updateValues,
     );
-    s;
     return updatedResident[0];
   }
 }
