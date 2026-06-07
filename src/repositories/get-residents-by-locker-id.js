@@ -11,8 +11,6 @@ export class PostgresGetResidentsByLockerIdRepository {
       [lockerId],
     );
 
-    console.log("ROWS:", residents.rows);
-
-    return residents.rows;
+    return residents;
   }
 }
