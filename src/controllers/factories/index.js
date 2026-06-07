@@ -4,6 +4,7 @@ import {
   PostgresGetResidentByIdRepository,
   PostgresDeleteResidentRepository,
   PostgresUpdateResidentRepository,
+  PostgresGetResidentsByLockerIdRepository,
 } from "../../repositories/index.js";
 
 import {
@@ -11,11 +12,13 @@ import {
   GetResidentByIdUseCase,
   DeleteResidentUseCase,
   UpdateResidentUseCase,
+  GetResidentsByLockerIdUseCase,
 } from "../../use-cases/index.js";
 import {
   CreateResidentController,
   GetResidentByIdController,
   DeleteResidentController,
+  GetResidentsByLockerIdController,
 } from "../residents/index.js";
 import { UpdateResidentController } from "../residents/update-resident.js";
 
@@ -76,4 +79,15 @@ export const makeUpdateResidentController = () => {
   );
 
   return updateResidentController;
+};
+
+export const makeGetResidentsByLockerIdController = () => {
+  const getResidentsByLockerIdRepository =
+    new PostgresGetResidentsByLockerIdRepository();
+
+  const getResidentsByLockerIdUseCase = new GetResidentsByLockerIdUseCase(
+    getResidentsByLockerIdRepository,
+  );
+
+  return new GetResidentsByLockerIdController(getResidentsByLockerIdUseCase);
 };
