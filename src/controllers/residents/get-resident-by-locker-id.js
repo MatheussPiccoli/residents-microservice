@@ -12,7 +12,8 @@ export class GetResidentsByLockerIdController {
 
   async execute(httpRequest) {
     try {
-      const { lockerId } = httpRequest.params;
+      const lockerId = httpRequest.params.lockerId;
+      console.log(lockerId);
 
       const lockerIdIsValid = checkIfIdIsValid(lockerId);
 
