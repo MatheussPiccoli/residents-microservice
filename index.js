@@ -4,6 +4,7 @@ import {
   makeCreateResidentController,
   makeDeleteResidentController,
   makeGetResidentByIdController,
+  makeUpdateResidentController,
 } from "./src/controllers/factories/index.js";
 
 const app = express();
@@ -22,6 +23,14 @@ app.get("/api/residents/:id", async (request, response) => {
   const getResidentByIdcontroller = makeGetResidentByIdController();
 
   const { statusCode, body } = await getResidentByIdcontroller.execute(request);
+
+  response.status(statusCode).send(body);
+});
+
+app.patch("/api/residents/:id", async (request, response) => {
+  const updateResidentController = makeUpdateResidentController();
+
+  const { statusCode, body } = await updateResidentController.execute(request);
 
   response.status(statusCode).send(body);
 });

@@ -54,3 +54,23 @@ export const makeDeleteResidentController = () => {
 
   return deleteResidentController;
 };
+
+export const makeUpdateResidentController = () => {
+  const updateResidentRepository = new PostgresUpdateResidentRepository();
+
+  const getResidentByIdRepository = new PostgresGetResidentByIdRepository();
+
+  const getResidentByEmailRepository = new PostGresGetUserByEmailRepository();
+
+  const updateResidentUseCase = new UpdateResidentUseCase(
+    updateResidentRepository,
+    getResidentByIdRepository,
+    getResidentByEmailRepository,
+  );
+
+  const updateResidentController = new UpdateResidentController(
+    updateResidentUseCase,
+  );
+
+  return updateResidentController;
+};
