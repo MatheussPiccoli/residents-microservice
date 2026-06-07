@@ -11,7 +11,7 @@ import {
 import {
   CreateResidentController,
   GetResidentByIdController,
-} from "../index.js";
+} from "../residents/index.js";
 
 export const makeCreateResidentController = () => {
   const createResidentRepository = new PostgresCreateResidentRepository();

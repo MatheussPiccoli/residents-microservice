@@ -1,13 +1,11 @@
-// controllers/get-resident-by-id.js
-
-import { ResidentNotFoundError } from "../errors/residents.js";
+import { ResidentNotFoundError } from "../../errors/residents.js";
 import {
   checkIfIdIsValid,
   invalidIdResponse,
   notFound,
   ok,
   serverError,
-} from "./helpers/index.js";
+} from "../helpers/index.js";
 
 export class GetResidentByIdController {
   constructor(getResidentByIdUseCase) {
