@@ -8,17 +8,18 @@ export class CreateResidentUseCase {
   }
 
   async execute(createResidentParams) {
-    const userWithProvidedEmail = this.getResidentByEmailRepository(
-      createResidentParams.email,
-    );
+    const userWithProvidedEmail =
+      await this.getResidentByEmailRepository.execute(
+        createResidentParams.email,
+      );
 
     if (userWithProvidedEmail) {
-      throw new Error({ message: "Email Already in use" });
+      throw new Error("Email Already in use");
     }
 
     const residentId = randomUUID();
 
-    const hashedPassword = bcrypt.hash(createResidentParams.password, 10);
+    const hashedPassword = await bcrypt.hash(createResidentParams.password, 10);
 
     const resident = {
       ...createResidentParams,
@@ -26,7 +27,8 @@ export class CreateResidentUseCase {
       password: hashedPassword,
     };
 
-    const createdResident = this.createResidentRepository.execute(resident);
+    const createdResident =
+      await this.createResidentRepository.execute(resident);
 
     return createdResident;
   }
