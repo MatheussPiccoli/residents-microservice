@@ -29,8 +29,7 @@ app.get("/api/residents/:id", async (request, response) => {
 app.delete("/api/residents/:id", async (request, response) => {
   const deleteResidentController = makeDeleteResidentController();
 
-  const { statusCode, body } =
-    await makeDeleteResidentController.execute(request);
+  const { statusCode, body } = await deleteResidentController.execute(request);
 
   response.status(statusCode).send(body);
 });

@@ -1,6 +1,6 @@
-import { PostgresHelper } from "../db/postgres/helper";
+import { PostgresHelper } from "../db/postgres/helper.js";
 
-export class PosgresDeleteResidentRepository {
+export class PostgresDeleteResidentRepository {
   async execute(residentId) {
     const deletedResident = await PostgresHelper.query(
       "DELETE FROM residents WHERE id = $1 RETURNING *",

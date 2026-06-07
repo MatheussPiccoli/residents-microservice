@@ -1,7 +1,7 @@
 import { ResidentNotFoundError } from "../errors/residents.js";
 
-export class DeleteUserUseCase {
-  constrcutor(deleteResidentRepository) {
+export class DeleteResidentUseCase {
+  constructor(deleteResidentRepository) {
     this.deleteResidentRepository = deleteResidentRepository;
   }
 

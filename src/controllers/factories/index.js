@@ -52,5 +52,5 @@ export const makeDeleteResidentController = () => {
     deleteResidentUseCase,
   );
 
-  return deleteUserController;
+  return deleteResidentController;
 };

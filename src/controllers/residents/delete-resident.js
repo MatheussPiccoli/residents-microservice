@@ -3,16 +3,16 @@ import {
   ok,
   checkIfIdIsValid,
   invalidIdResponse,
-  userNotFoundResponse,
+  residentNotFoundResponse,
 } from "../helpers/index.js";
 
 export class DeleteResidentController {
   constructor(deleteResidentUseCase) {
-    this.deleteResidentrUseCase = deleteResidentUseCase;
+    this.deleteResidentUseCase = deleteResidentUseCase;
   }
   async execute(httpRequest) {
     try {
-      const residentId = httpRequest.params.residentId;
+      const residentId = httpRequest.params.id;
 
       const idIsValid = checkIfIdIsValid(residentId);
 
@@ -20,10 +20,11 @@ export class DeleteResidentController {
         return invalidIdResponse();
       }
 
-      const deletedResident = await this.deleteUserUseCase.execute(userId);
+      const deletedResident =
+        await this.deleteResidentUseCase.execute(residentId);
 
       if (!deletedResident) {
-        return userNotFoundResponse();
+        return residentNotFoundResponse();
       }
 
       return ok(deletedResident);
