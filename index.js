@@ -1,6 +1,9 @@
 import "dotenv/config.js";
 import express, { response } from "express";
-import { makeCreateResidentController } from "./src/controllers/factories/index.js";
+import {
+  makeCreateResidentController,
+  makeGetResidentByIdController,
+} from "./src/controllers/factories/index.js";
 
 const app = express();
 
@@ -14,7 +17,7 @@ app.post("/api/residents", async (request, response) => {
   response.status(statusCode).send(body);
 });
 
-app.get("/residents/:id", async (request, response) => {
+app.get("/api/residents/:id", async (request, response) => {
   const controller = makeGetResidentByIdController();
 
   const { statusCode, body } = await controller.execute(request);

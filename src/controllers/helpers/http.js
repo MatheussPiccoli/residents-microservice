@@ -19,7 +19,7 @@ export const ok = (body) => ({
   body,
 });
 
-export const NotFound = (body) => ({
+export const notFound = (body) => ({
   statusCode: 404,
   body,
 });

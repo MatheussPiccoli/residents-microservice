@@ -7,7 +7,7 @@ import {
   notFound,
   ok,
   serverError,
-} from "../helpers/index.js";
+} from "./helpers/index.js";
 
 export class GetResidentByIdController {
   constructor(getResidentByIdUseCase) {

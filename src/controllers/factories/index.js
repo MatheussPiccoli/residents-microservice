@@ -1,7 +1,7 @@
 import {
   PostgresCreateResidentRepository,
   PostGresGetUserByEmailRepository,
-  GetResidentByIdController,
+  PostgresGetResidentByIdRepository,
 } from "../../repositories/index.js";
 
 import {
