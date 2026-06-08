@@ -1,4 +1,7 @@
 import validator from "validator";
+import axios from "axios";
+
+const LOCKERS_URL = process.env.LOCKERS_SERVICE_URL || "http://localhost:3005";
 
 export class CreateResidentController {
   constructor(createResidentUseCase) {
@@ -8,6 +11,8 @@ export class CreateResidentController {
   async execute(httpRequest) {
     try {
       const params = httpRequest.body || {};
+
+      const { name, email, password, locker_id } = httpRequest.body;
 
       const requiredFields = ["name", "email", "locker_id", "password"];
 
@@ -24,6 +29,26 @@ export class CreateResidentController {
             body: { message: `The field ${field} is required` },
           };
         }
+      }
+
+      try {
+        await axios.get(`${LOCKERS_URL}/lockers/${locker_id}`);
+      } catch (err) {
+        if (err.response?.status === 404) {
+          return {
+            statusCode: 404,
+            body: {
+              message: "Locker not found",
+            },
+          };
+        }
+
+        return {
+          statusCode: 503,
+          body: {
+            message: "Lockers service unavailable",
+          },
+        };
       }
 
       const passwordIsValid = params.password && params.password.length >= 6;
